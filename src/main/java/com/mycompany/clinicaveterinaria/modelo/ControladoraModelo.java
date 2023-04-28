@@ -2,6 +2,7 @@ package com.mycompany.clinicaveterinaria.modelo;
 
 import com.mycompany.clinicaveterinaria.controlador.Dueño;
 import com.mycompany.clinicaveterinaria.controlador.Mascota;
+import java.util.List;
 
 
 public class ControladoraModelo {
@@ -15,6 +16,10 @@ MascotaJpaController mascoJpa = new MascotaJpaController();
         
         //crear en la BD la mascota
         mascoJpa.create(masco);
+    }
+
+    public List<Mascota> traerMascotas() {
+        return mascoJpa.findMascotaEntities();
     }
     
 }

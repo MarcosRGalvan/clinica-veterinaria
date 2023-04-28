@@ -1,6 +1,7 @@
 package com.mycompany.clinicaveterinaria.controlador;
 
 import com.mycompany.clinicaveterinaria.modelo.ControladoraModelo;
+import java.util.List;
 
 
 public class Controladora {
@@ -11,7 +12,7 @@ public class Controladora {
                         String alergico, String atenEsp, 
                         String nombreDueño, String celDueño) {
         
-        //Creamos el dueño y asignamos sus valores
+        //Creamos al dueño y asignamos sus valores
         Dueño dueño = new Dueño();
         dueño.setNombre(nombreDueño);
         dueño.setCelDuenio(celDueño);
@@ -29,7 +30,10 @@ public class Controladora {
         
         controlModel.guardar(dueño,masco);
     }
-    
-    
-    
-}
+
+    public List<Mascota> traerMascotas() {
+        return controlModel.traerMascotas();
+    }
+
+} 
+

@@ -36,6 +36,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jButton2.setText("Ver Datos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jButton3.setText("Salir");
@@ -64,7 +69,6 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(34, 34, 34))
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("/Users/marcoramirez/Downloads/ilustracion-dibujos-animados-lindo-perro-gato-lindo/3500_2_13.jpg")); // NOI18N
         jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -114,6 +118,13 @@ public class MainScreen extends javax.swing.JFrame {
         pantalla.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     

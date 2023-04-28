@@ -1,3 +1,13 @@
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/exceptions/NonexistentEntityException.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/DueñoJpaController.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/exceptions/PreexistingEntityException.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/exceptions/IllegalOrphanException.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/controlador/Controladora.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/Vista/MainScreen.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/controlador/Mascota.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/controlador/Dueño.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/Vista/VerDatos.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/ControladoraModelo.java
 /Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/ClinicaVeterinaria.java
 /Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/Vista/CargaDatos.java
-/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/Vista/MainScreen.java
+/Users/marcoramirez/NetBeansProjects/ClinicaVeterinaria/src/main/java/com/mycompany/clinicaveterinaria/modelo/MascotaJpaController.java
