@@ -1,16 +1,21 @@
 package com.mycompany.clinicaveterinaria.Vista;
 import com.mycompany.clinicaveterinaria.controlador.Controladora;
+import com.mycompany.clinicaveterinaria.controlador.Mascota;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
-public class CargaDatos extends javax.swing.JFrame {
+public class ModificarDatos extends javax.swing.JFrame {
     
-    Controladora control = new Controladora();
+    Controladora control = null;
+    int num_cliente;
+    Mascota masco;
     
-    public CargaDatos() {
-        //control = new Controladora();
+    public ModificarDatos(int num_cliente) {
+        control = new Controladora();
+        //this.num_cliente = num_cliente;
         initComponents();
+        cargarDatos(num_cliente);
     }
 
     
@@ -45,7 +50,7 @@ public class CargaDatos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
-        jLabel1.setText("Ingresar Datos");
+        jLabel1.setText("Editar Datos");
 
         jLabel3.setText("Nombre:");
 
@@ -155,7 +160,7 @@ public class CargaDatos extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         btnGuardar.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Actualizar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -175,10 +180,6 @@ public class CargaDatos extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,20 +187,24 @@ public class CargaDatos extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)
                         .addGap(43, 43, 43))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(237, 237, 237))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(21, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -238,26 +243,33 @@ public class CargaDatos extends javax.swing.JFrame {
         cmbAtEsp.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        //DATOS DE LA MASCOTA
         String nombreMasco = txtNombre.getText();
         String especie = txtEspecie.getText();
         String color = txtColor.getText();
         String observaciones = txtObservaciones.getText();
         String alergico = (String) cmbAlergias.getSelectedItem();
         String atenEsp = (String) cmbAtEsp.getSelectedItem();
+        
+        //DATOS DEL DUEÑO
         String nombreDueño = txtNomDueño.getText();
         String celDueño = txtCelDueño.getText();
         
-        control.guardar(nombreMasco, especie, color, observaciones, alergico,
-                atenEsp, nombreDueño, celDueño);
+        control.modificarMascota(masco, nombreMasco, especie, color, observaciones, alergico, atenEsp, nombreDueño, celDueño);
         
-        JOptionPane optionPane = new JOptionPane("Se guardo correctamente");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+        //Mensaje
+        mostrarMensaje("Se modifico correctamente", "Info", "Edicion correcta");
+        
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
         
         this.dispose();
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     
@@ -287,4 +299,48 @@ public class CargaDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
+
+    
+    private void cargarDatos(int num_cliente) {
+        this.masco = control.traerMascota(num_cliente);
+        
+        txtNombre.setText(masco.getNombre());
+        txtEspecie.setText(masco.getEspecie());
+        txtColor.setText(masco.getColor());
+        txtNomDueño.setText(masco.getUnDueño().getNombre());
+        txtCelDueño.setText(masco.getUnDueño().getCelDuenio());
+        txtObservaciones.setText(masco.getObservaciones());
+        
+        if(masco.getAlergico().equals("SI")){
+            cmbAlergias.setSelectedIndex(1);
+        }
+        else{
+            if(masco.getAlergico().equals("NO")){
+                cmbAtEsp.setSelectedIndex(2);
+            }
+        }
+        
+        if(masco.getAtencion_especial().equals("SI")){
+            cmbAlergias.setSelectedIndex(1);
+        }
+        else{
+            if(masco.getAtencion_especial().equals("NO")){
+                cmbAtEsp.setSelectedIndex(2);
+            }
+        }
+    }
+    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+     
+    }
 }

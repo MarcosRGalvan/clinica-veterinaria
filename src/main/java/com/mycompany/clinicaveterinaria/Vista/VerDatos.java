@@ -3,6 +3,8 @@ package com.mycompany.clinicaveterinaria.Vista;
 import com.mycompany.clinicaveterinaria.controlador.Controladora;
 import com.mycompany.clinicaveterinaria.controlador.Mascota;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VerDatos extends javax.swing.JFrame {
@@ -37,7 +39,7 @@ public class VerDatos extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
-        jLabel1.setText("Visualizacion de Datos");
+        jLabel1.setText("Informacion Pacientes");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -58,8 +60,18 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel2.setText("Datos del paciente:");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -100,21 +112,22 @@ public class VerDatos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(146, 146, 146))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel1)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -140,6 +153,77 @@ public class VerDatos extends javax.swing.JFrame {
 
     
     
+    //Boton eliminar registro
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //Esto verfica que la tabla no este vacia
+        if(tablaMascotas.getRowCount() > 0){
+            //Esto verifica que se haya seleccionado un campo de la tabla
+            if(tablaMascotas.getSelectedRow() != -1){
+                //se obtiene el id de la mascota a eliminar
+                int num_cliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0)));
+                
+                //llama al metodo borrar
+                control.borrarMascota(num_cliente);
+                
+                //manda el aviso de que se borro correctamente
+                mostrarMensaje("Mascota eliminada correctamente", "Info", "Borrado de mascota");
+                cargarTabla();
+            }
+            else {
+                mostrarMensaje("No selecciono ningun registro", "Error", "Error al eliminar");
+            }
+        }
+        else {
+            mostrarMensaje("No hay nada para eliminar en la tabla","Error","Error al eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    
+    
+    //Boton editar registro
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        //Esto verfica que la tabla no este vacia
+        if(tablaMascotas.getRowCount() > 0){
+            //Esto verifica que se haya seleccionado un campo de la tabla
+            if(tablaMascotas.getSelectedRow() != -1){
+                //se obtiene el id de la mascota a editar
+                int num_cliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0)));
+                
+                ModificarDatos pantallaModif = new ModificarDatos(num_cliente);
+                pantallaModif.setVisible(true);
+                pantallaModif.setLocation(null);
+                
+                this.dispose();
+                
+            }    
+            else {
+                mostrarMensaje("No selecciono ningun registro", "Error", "Error al eliminar");
+            }
+        }
+        else {
+            mostrarMensaje("No hay nada para eliminar en la tabla","Error","Error al eliminar");
+        }
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    
+    
+    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+     
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -152,7 +236,7 @@ public class VerDatos extends javax.swing.JFrame {
     private javax.swing.JTable tablaMascotas;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla() {
+    public void cargarTabla() {
         //Definir el modelo que tendra la tabla
         DefaultTableModel modeloTabla = new DefaultTableModel() {
             //Esto hace que las filas y las columnas no sean editables.

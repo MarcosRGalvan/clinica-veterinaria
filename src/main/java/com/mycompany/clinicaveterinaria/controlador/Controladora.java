@@ -35,5 +35,43 @@ public class Controladora {
         return controlModel.traerMascotas();
     }
 
+    public void borrarMascota(int num_cliente) {
+        controlModel.borrarMascotas(num_cliente);
+    }
+
+    public Mascota traerMascota(int num_cliente) {
+       return controlModel.traerMascota(num_cliente);
+    }
+
+    public void modificarMascota(Mascota masco, String nombreMasco, String especie,
+            String color, String observaciones, String alergico, String atenEsp, 
+            String nombreDueño, String celDueño) {
+        
+        masco.setNombre(nombreMasco);
+        masco.setEspecie(especie);
+        masco.setColor(color);
+        masco.setObservaciones(observaciones);
+        masco.setAtencion_especial(atenEsp);
+        masco.setAlergico(alergico);
+        
+        //modifico mascota
+        controlModel.modificarMascota(masco);
+        
+        Dueño dueno = this.buscarDuenio(masco.getUnDueño().getId_duenio());
+        dueno.setCelDuenio(celDueño);
+        dueno.setNombre(nombreDueño);
+        
+        //llamar a modificar duenio
+        this.modificarDuenio(dueno);
+    }
+
+    private Dueño buscarDuenio(int id_duenio) {
+        return controlModel.traerDuenio(id_duenio);
+    }
+
+    private void modificarDuenio(Dueño dueno) {
+        controlModel.modificarDuenio(dueno);
+    }
+
 } 
 
